@@ -8,26 +8,52 @@
 </head>
 <body>
     <div class="container">
-        <h1>AI Customer Support Chatbot</h1>
-        <p>Ask a support question below.</p>
+        <div class="chat-shell">
+            <div class="chat-header">
+                <div>
+                    <p class="eyebrow">Always online</p>
+                    <h1>AI Customer Support Chatbot</h1>
+                    <p class="subtitle">Ask a support question and get an instant answer.</p>
+                </div>
+            </div>
 
-        <div class="chat-box" id="chatBox"></div>
+            <div class="chat-box" id="chatBox"></div>
 
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Type your question here..." />
-            <button onclick="sendMessage()">Send</button>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Type your question here..." />
+                <button type="button" onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
 
     <script>
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function appendMessage(role, text) {
+            const chatBox = document.getElementById("chatBox");
+            const roleLabel = role === "user" ? "You" : "Bot";
+
+            chatBox.innerHTML += `
+                <div class="message-row ${role}">
+                    <div class="message-meta">${roleLabel}</div>
+                    <div class="message-bubble">${escapeHtml(text)}</div>
+                </div>
+            `;
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
         async function sendMessage() {
             const input = document.getElementById("userInput");
-            const chatBox = document.getElementById("chatBox");
             const message = input.value.trim();
 
             if (!message) return;
 
-            chatBox.innerHTML += `<div class="user-msg"><strong>You:</strong> ${message}</div>`;
+            appendMessage("user", message);
             input.value = "";
 
             try {
@@ -40,10 +66,9 @@
                 });
 
                 const data = await response.json();
-                chatBox.innerHTML += `<div class="bot-msg"><strong>Bot:</strong> ${data.reply}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
+                appendMessage("bot", data.reply);
             } catch (error) {
-                chatBox.innerHTML += `<div class="bot-msg"><strong>Bot:</strong> Error sending message.</div>`;
+                appendMessage("bot", "Error sending message.");
             }
         }
 
