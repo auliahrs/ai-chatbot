@@ -1,0 +1,26 @@
+[
+  {
+    "question": "What are your business hours?",
+    "answer": "Our business hours are Monday to Friday, 9 AM to 6 PM."
+  },
+  {
+    "question": "How do I reset my password?",
+    "answer": "You can reset your password by clicking the 'Forgot Password' link on the login page."
+  },
+  {
+    "question": "How can I contact customer support?",
+    "answer": "You can contact customer support by email at support@example.com."
+  },
+  {
+    "question": "Where is my order?",
+    "answer": "You can check your order status in your account under the Orders section."
+  },
+  {
+    "question": "Can I request a refund?",
+    "answer": "Yes, refund requests can be made according to the refund policy within the allowed period."
+  },
+  {
+    "question": "How long does delivery take?",
+    "answer": "Delivery usually takes 3 to 5 working days, depending on your location."
+  }
+]
